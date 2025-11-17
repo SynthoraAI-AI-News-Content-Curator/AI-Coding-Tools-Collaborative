@@ -29,7 +29,7 @@ agents:
   # GitHub Copilot - Additional suggestions (optional)
   copilot:
     enabled: false
-    command: "gh"  # GitHub CLI with copilot extension
+    command: "copilot"
     role: "suggestions"
     timeout: 120
     description: "Provides alternative implementation suggestions"

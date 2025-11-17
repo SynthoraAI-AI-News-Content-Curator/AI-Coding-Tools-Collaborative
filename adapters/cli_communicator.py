@@ -355,9 +355,8 @@ class AgentCLIRegistry:
             'supports_workspace': False,
             'output_format': 'text'
         },
-        'github-copilot-cli': {
-            'command': 'gh',
-            'subcommand': 'copilot',
+        'copilot': {
+            'command': 'copilot',
             'method': 'arg',
             'supports_workspace': False,
             'output_format': 'text'

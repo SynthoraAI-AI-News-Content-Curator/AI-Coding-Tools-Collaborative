@@ -8,7 +8,7 @@ The AI Orchestrator coordinates these CLI tools:
 - **Claude Code** (command: `claude`)
 - **Codex** (command: `codex`)
 - **Gemini** (command: `gemini`)
-- **GitHub Copilot CLI** (command: `gh copilot`)
+- **GitHub Copilot CLI** (command: `copilot`)
 
 You need **at least one** of these installed to use the orchestrator.
 
@@ -95,33 +95,25 @@ gemini --prompt "Hello, Gemini!"
 
 **Install:**
 ```bash
-# First install GitHub CLI
-# macOS
-brew install gh
+# Install Copilot CLI
+# Follow GitHub's installation instructions
+npm install -g @githubnext/github-copilot-cli
 
-# Linux
-curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-sudo apt update
-sudo apt install gh
-
-# Then install Copilot extension
-gh extension install github/gh-copilot
+# Or via other methods provided by GitHub
 ```
 
 **Authenticate:**
 ```bash
-gh auth login
+copilot auth login
 # Follow the prompts to authenticate
 ```
 
 **Verify:**
 ```bash
-gh --version
-gh copilot --version
+copilot --version
 
 # Test it works
-gh copilot suggest "write a function"
+copilot "write a function"
 ```
 
 ## ✅ Verify All Installations
@@ -162,15 +154,11 @@ fi
 echo ""
 
 # GitHub Copilot
-if command -v gh &> /dev/null; then
-    echo "✓ GitHub CLI: INSTALLED"
-    if gh extension list 2>&1 | grep -q copilot; then
-        echo "✓ Copilot extension: INSTALLED"
-    else
-        echo "✗ Copilot extension: NOT INSTALLED"
-    fi
+if command -v copilot &> /dev/null; then
+    echo "✓ Copilot CLI: INSTALLED"
+    copilot --version 2>&1 | head -1
 else
-    echo "✗ GitHub CLI: NOT FOUND"
+    echo "✗ Copilot CLI: NOT FOUND"
 fi
 echo ""
 
@@ -297,7 +285,7 @@ After installation:
    claude --message "Test"
    echo "Test" | codex
    gemini --prompt "Test"
-   gh copilot suggest "Test"
+   copilot "Test"
    ```
 
 2. **Validate configuration:**
@@ -337,8 +325,7 @@ For the **best experience**, install all tools:
 claude auth login    # Claude Code
 # Set up Codex
 gemini auth login    # Gemini
-gh auth login        # Copilot
-gh extension install github/gh-copilot
+copilot auth login   # Copilot
 
 # Verify all are working
 ./ai-orchestrator agents
