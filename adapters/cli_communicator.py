@@ -348,16 +348,15 @@ class AgentCLIRegistry:
             'supports_workspace': True,
             'output_format': 'text'
         },
-        'gemini-cli': {
-            'command': 'gemini-cli',
+        'gemini': {
+            'command': 'gemini',
             'method': 'arg',
             'prompt_flag': '--prompt',
             'supports_workspace': False,
             'output_format': 'text'
         },
-        'github-copilot-cli': {
-            'command': 'gh',
-            'subcommand': 'copilot',
+        'copilot': {
+            'command': 'copilot',
             'method': 'arg',
             'supports_workspace': False,
             'output_format': 'text'
