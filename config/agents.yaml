@@ -1,0 +1,130 @@
+# AI Agent Configuration
+# Configure which AI coding assistants to use and how they should collaborate
+
+agents:
+  # OpenAI Codex - Primary implementation agent
+  codex:
+    enabled: true
+    command: "codex"
+    role: "implementation"
+    timeout: 300
+    description: "Primary implementation agent for writing initial code"
+
+  # Google Gemini - Code review and architecture analysis
+  gemini:
+    enabled: true
+    command: "gemini-cli"
+    role: "review"
+    timeout: 180
+    description: "Reviews code for SOLID principles and best practices"
+
+  # Claude Code - Refinement and improvement
+  claude:
+    enabled: true
+    command: "claude"
+    role: "refinement"
+    timeout: 300
+    description: "Implements feedback and refines code quality"
+
+  # GitHub Copilot - Additional suggestions (optional)
+  copilot:
+    enabled: false
+    command: "gh"  # GitHub CLI with copilot extension
+    role: "suggestions"
+    timeout: 120
+    description: "Provides alternative implementation suggestions"
+
+# Workflow Definitions
+# Define how agents collaborate on different types of tasks
+
+workflows:
+  # Default workflow: Implementation -> Review -> Refinement
+  default:
+    - agent: "codex"
+      task: "implement"
+      description: "Create initial implementation"
+
+    - agent: "gemini"
+      task: "review"
+      description: "Review for SOLID principles and best practices"
+
+    - agent: "claude"
+      task: "refine"
+      description: "Implement feedback and improvements"
+
+  # Quick workflow: Just implementation
+  quick:
+    - agent: "codex"
+      task: "implement"
+      description: "Quick implementation without review"
+
+  # Thorough workflow: Multiple review cycles
+  thorough:
+    - agent: "codex"
+      task: "implement"
+      description: "Create initial implementation"
+
+    - agent: "copilot"
+      task: "suggestions"
+      description: "Get alternative approaches"
+
+    - agent: "gemini"
+      task: "review"
+      description: "Comprehensive code review"
+
+    - agent: "claude"
+      task: "refine"
+      description: "Implement all feedback"
+
+    - agent: "gemini"
+      task: "review"
+      description: "Verify improvements"
+
+  # Review-only: For existing code
+  review-only:
+    - agent: "gemini"
+      task: "review"
+      description: "Review existing code"
+
+    - agent: "claude"
+      task: "refine"
+      description: "Implement improvements"
+
+  # Documentation workflow
+  document:
+    - agent: "claude"
+      task: "document"
+      description: "Generate comprehensive documentation"
+
+    - agent: "gemini"
+      task: "review"
+      description: "Review documentation quality"
+
+# Global Settings
+settings:
+  # Maximum number of iterations for iterative refinement
+  max_iterations: 3
+
+  # Output directory for generated code
+  output_dir: "./output"
+
+  # Workspace directory for agent collaboration
+  workspace_dir: "./workspace"
+
+  # Logging level (DEBUG, INFO, WARNING, ERROR)
+  log_level: "INFO"
+
+  # Log file location
+  log_file: "ai-orchestrator.log"
+
+  # Whether to create detailed execution reports
+  create_reports: true
+
+  # Report output directory
+  reports_dir: "./reports"
+
+  # Stop iteration if review has fewer than this many suggestions
+  min_suggestions_threshold: 3
+
+  # Enable colored output
+  colored_output: true
